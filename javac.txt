@@ -1,0 +1,5 @@
+cd C:\Users\João Salomão\OneDrive\IFC\3º Semestre\SO\ProcessBuilder
+javac TCPCliente.java 
+javac TCPServerMultiCliente.java 
+java TCPServerMultiCliente 
+java TCPCliente
