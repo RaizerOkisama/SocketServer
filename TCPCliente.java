@@ -3,29 +3,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
-/**
- *
- * DOCUMENTA��O DA CLASSE ---------------------- FINALIDADE: Classe que
- * implementa a parte cliente de um Socket TCP.
- *
- * HIST�RICO DE DESENVOLVIMENTO: Marco 18, 2019 - @author Alexandre A. Amaral
- * - @version 1.0.
- *
- */
 public class TCPCliente {
-
 	private ObjectInputStream entrada;
 	private ObjectOutputStream saida;
 	private Socket s;
 
-	/**
-	 * Construtor default da classe.
-	 * 
-	 * @author Alexandre A. Amaral.
-	 */
 	public TCPCliente() {
 		try {
 			String ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
+			// Enquanto o usuário não informar um endereço válido ou digitar "Sair" fica em loop
 			while (ValidateIPv4.isValidInet4Address(ip) == false) {
 				if(ip.equalsIgnoreCase("SAIR")) {
 					return;
@@ -33,7 +19,7 @@ public class TCPCliente {
 				System.out.println("Digite o endereco IP do servidor corretamente.");
 				ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
 			}
-
+			// Tenta conectar com o servidor
 			try {
 				s = new Socket(ip, 5000);
 				System.out.println(">>| A conexao com o servidor foi realizada com sucesso |<<");
@@ -45,13 +31,14 @@ public class TCPCliente {
 			saida = new ObjectOutputStream(s.getOutputStream());
 			entrada = new ObjectInputStream(s.getInputStream());
 			String texto = "";
+			// Enquanto o usuário não digitar sair ou fechar a janela de diálogo fica em loop
 			do {
 				try {
-					// envia uma mensagem para o servidor
+					// Envia o nome ou a path do programa que deve ser executado para o servidor;
 					texto = JOptionPane.showInputDialog(null, "Digite o nome do programa que deseja executar: ");
 					saida.writeObject(texto);
 					saida.flush();
-					// l� os dados recebidos do servidor
+					// Lê os dados recebidos do servidor
 					System.out.println(entrada.readObject());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,13 +53,7 @@ public class TCPCliente {
 		} 
 		
 	}
-
-	/**
-	 * M�dodo principal.
-	 * 
-	 * @author Alexandre A. Amaral.
-	 * @param args
-	 */    
+	// Método principal
 	public static void main (String args[]) {
 		new TCPCliente();
 	} 
