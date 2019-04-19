@@ -2,6 +2,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import javax.swing.JOptionPane;
+
 /**
  *
  * DOCUMENTA��O DA CLASSE ---------------------- FINALIDADE: Classe que
@@ -23,11 +24,13 @@ public class TCPCliente {
 	 * @author Alexandre A. Amaral.
 	 */
 	public TCPCliente() {
-
 		try {
 			String ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
-			while (ip.isEmpty()) {
-				System.out.println("Digite o endereço IP para realizar a conexão com o servidor.");
+			while (ValidateIPv4.isValidInet4Address(ip) == false) {
+				if(ip.equalsIgnoreCase("SAIR")) {
+					return;
+				}
+				System.out.println("Digite o endereco IP do servidor corretamente.");
 				ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
 			}
 

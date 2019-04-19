@@ -106,8 +106,12 @@ public class TCPServerMultiCliente {
 							// envia a resposta para o cliente
 							saida.writeObject("O programa " + valor.toString().toUpperCase() + " foi executado com sucesso !");
 						} catch (Exception e){
-							saida.writeObject("Nao foi possivel executar o programa informado, tente novamente.");
+							if(valor.toString().equalsIgnoreCase("SAIR")) {
+								saida.writeObject("See You Later");
+							} else {
+							saida.writeObject("Nao foi possivel executar o programa "+ valor.toString().toUpperCase() +", tente novamente.");
 							e.printStackTrace();
+							}
 						} finally {
 							saida.flush(); 	
 						}
