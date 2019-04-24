@@ -10,11 +10,12 @@ public class TCPCliente {
 
 	public TCPCliente() {
 		try {
-			String ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
+			String ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor ou sair: ");
 			// Enquanto o usuário não informar um endereço válido ou digitar "Sair" fica em loop
 			while (ValidateIPv4.isValidInet4Address(ip) == false) {
 				if(ip.equalsIgnoreCase("SAIR")) {
-					return;
+					System.out.println("Encerrando o programa");
+					System.exit(0);
 				}
 				System.out.println("Digite o endereco IP do servidor corretamente.");
 				ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor: ");
@@ -22,7 +23,7 @@ public class TCPCliente {
 			// Tenta conectar com o servidor
 			try {
 				s = new Socket(ip, 5000);
-				System.out.println(">>| A conexao com o servidor foi realizada com sucesso |<<");
+				System.out.println(">>| A conexao com o servidor foi estabelecida com sucesso |<<");
 				System.out.println(">>| Info. servidor - " + s.getRemoteSocketAddress() + " |<<");
 			} catch (Exception e) {
 				e.printStackTrace();
